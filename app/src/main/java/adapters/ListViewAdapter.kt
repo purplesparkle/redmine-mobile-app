@@ -49,8 +49,8 @@ class ListViewAdapter(private var activity: Activity, private var items: ArrayLi
         var txtComment: TextView? = null
 
         init {
-            this.txtName = row?.findViewById<TextView>(R.id.txtName)
-            this.txtComment = row?.findViewById<TextView>(R.id.txtComment)
+            this.txtName = row?.findViewById(R.id.txtName) as TextView?
+            this.txtComment = row?.findViewById(R.id.txtComment) as TextView?
         }
     }
 }

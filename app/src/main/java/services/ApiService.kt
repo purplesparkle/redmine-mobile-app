@@ -1,18 +1,37 @@
 package com.example.redmineapp.services
 
+import android.content.SharedPreferences
 import com.example.redmineapp.data.IssueResponse
 import com.example.redmineapp.data.ProjectResponse
-import java.net.URL
+import okhttp3.*
+import java.io.IOException
+//import kotlinx.serialization.*
+//import kotlinx.serialization.json.JSON
 
-
-class ApiService(var apiKey: String)
+class ApiService(private val prefs: SharedPreferences)
 {
+    private val client = OkHttpClient()
+
+    private fun createBaseBuilder(url: String): Request.Builder{
+        var apiKey = StorageService().fetchByKey(prefs, "apiKey")
+        return Request.Builder()
+            .url(url)
+            .addHeader("Authorization", apiKey)
+    }
+
     fun getAllProjects(host: String): ProjectResponse?
     {
-        val url = host.plus("/projects.json?key = 'd7e318857259ad0854051089517d50038e7dda16'")
-        val json = URL(url).readText()
+        val url = host.plus("/projects.json")
+        val request = createBaseBuilder(url).build()
 
-        throw NotImplementedError()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                response.body()?.string()
+            }
+        })
+
+        return null
     }
 
     fun getAllIssues(host:String, projectId: Int): IssueResponse?

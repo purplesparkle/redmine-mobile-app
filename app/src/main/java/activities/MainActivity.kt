@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.example.redmineapp.services.StorageService
+import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.apiKey= findViewById(R.id.apiKey)
-        this.host = findViewById(R.id.host)
+        this.apiKey= findViewById(R.id.apiKey) as TextView?
+        this.host = findViewById(R.id.host) as TextView?
         setDefaultValues()
     }
 

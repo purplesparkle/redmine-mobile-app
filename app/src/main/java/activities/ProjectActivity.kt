@@ -13,7 +13,7 @@ class ProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project)
 
-        val listView = findViewById<ListView>(R.id.listView)
+        val listView = findViewById(R.id.listView) as ListView
         val items = ArrayList<Project>()
         val first = Project("Javascript project","Yet another framework", status = 1)
         val second = Project(".Net core project","Netcore scalable applications with DI", status = 2)

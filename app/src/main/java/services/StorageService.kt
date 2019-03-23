@@ -24,5 +24,9 @@ class StorageService
         }
         return  map
     }
+
+    fun fetchByKey(prefs: SharedPreferences, key: String): String{
+        return prefs.getString(key, "")
+    }
 }
 

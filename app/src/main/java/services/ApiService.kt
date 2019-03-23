@@ -1,8 +1,9 @@
 package com.example.redmineapp.services
 
 import android.content.SharedPreferences
-import com.example.redmineapp.data.IssueResponse
-import com.example.redmineapp.data.ProjectResponse
+import com.example.redmineapp.data.Project
+import data.Issue
+import data.RedmineResponse
 import okhttp3.*
 import java.io.IOException
 //import kotlinx.serialization.*
@@ -17,9 +18,10 @@ class ApiService(private val prefs: SharedPreferences)
         return Request.Builder()
             .url(url)
             .addHeader("Authorization", apiKey)
+        
     }
 
-    fun getAllProjects(host: String): ProjectResponse?
+    fun getAllProjects(host: String): RedmineResponse<Project>
     {
         val url = host.plus("/projects.json")
         val request = createBaseBuilder(url).build()
@@ -31,10 +33,10 @@ class ApiService(private val prefs: SharedPreferences)
             }
         })
 
-        return null
+        throw NotImplementedError()
     }
 
-    fun getAllIssues(host:String, projectId: Int): IssueResponse?
+    fun getAllIssues(host:String, projectId: Int): RedmineResponse<Issue>
     {
         throw NotImplementedError()
     }

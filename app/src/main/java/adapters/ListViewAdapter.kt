@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.redmineapp.R
 import com.example.redmineapp.data.Project
 
-class ListViewAdapter(private var activity: Activity, private var items: ArrayList<Project>): BaseAdapter(){
+class ListViewAdapter(private var activity: Activity, private var items: List<Project>): BaseAdapter(){
 
     override fun getItem(i: Int): Project {
         return items[i]
@@ -40,7 +40,6 @@ class ListViewAdapter(private var activity: Activity, private var items: ArrayLi
         val project = items[position]
         viewHolder.txtName?.text = project.name
         viewHolder.txtComment?.text = project.description
-
         return view as View
     }
 

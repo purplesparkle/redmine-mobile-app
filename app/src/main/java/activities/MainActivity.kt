@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import com.example.redmineapp.data.Project
+import com.example.redmineapp.services.ApiService
 import com.example.redmineapp.services.StorageService
 import org.w3c.dom.Text
 
@@ -45,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         var intent = Intent(this, ProjectActivity::class.java)
         startActivity(intent)
-        return
     }
 
     fun checkConnection(apiKey: String, host: String){

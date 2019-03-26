@@ -1,4 +1,4 @@
-package data
+package com.example.redmineapp.data
 
 import com.beust.klaxon.Json
 import java.util.*

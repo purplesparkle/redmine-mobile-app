@@ -1,4 +1,4 @@
-package data
+package com.example.redmineapp.data
 
 data class RedmineResponse<T>(
     var projects: List<T>,

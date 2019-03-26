@@ -1,13 +1,10 @@
 package com.example.redmineapp.services
 
 import android.content.SharedPreferences
+import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.PathMatcher
-import data.RedmineResponse
 import okhttp3.*
-import java.io.IOException
 import java.io.StringReader
-import java.util.regex.Pattern
 
 class ApiService(private val prefs: SharedPreferences)
 {
@@ -25,8 +22,8 @@ class ApiService(private val prefs: SharedPreferences)
             .addHeader("Authorization", apiKey)
     }
 
-    fun getProjects(callback: Callback): Call {
-        val request = createBaseBuilder("projects.json").build()
+    fun getProjects(urlPath: String, callback: Callback): Call {
+        val request = createBaseBuilder(urlPath).build()
         var call = client.newCall(request)
         call.enqueue(callback)
         return call

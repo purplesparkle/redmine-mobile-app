@@ -32,7 +32,7 @@ class ProjectsListViewAdapter(private var activity: Activity, private var items:
        return view as View
    }
 
-   class ViewHolder(row: View?) {
+    class ViewHolder(row: View?) {
        var projectSubject: TextView? = null
        var projectDescription: TextView? = null
 

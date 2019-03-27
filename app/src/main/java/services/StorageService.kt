@@ -13,7 +13,7 @@ class StorageService
         editor.commit()
     }
 
-    fun fetchData(prefs: SharedPreferences,keys: List<String>): HashMap<String, String>
+    fun fetchData(prefs: SharedPreferences, keys: List<String>): HashMap<String, String>
     {
         val map: HashMap<String, String> = hashMapOf()
 

@@ -19,7 +19,7 @@ class TimeEntryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_project)
+        setContentView(R.layout.activity_entry)
         val issueId = intent.getIntExtra("issue_id",-1)
         fillEntries(issueId)
     }
@@ -47,9 +47,6 @@ class TimeEntryActivity : AppCompatActivity() {
             val adapter = TimeEntriesListViewAdapter(this, items)
             listView.adapter = adapter
             listView.setOnItemClickListener { parent, view, position, id ->
-                val id = items[position].id
-                var intent = Intent(this, IssueActivity::class.java)
-                startActivity(intent)
             }
             adapter.notifyDataSetChanged()
         }

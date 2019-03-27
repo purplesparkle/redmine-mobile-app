@@ -1,5 +1,13 @@
 # Kotlin based redmine app
 
-# UI Design
+## Задачи
 
-Figma link https://www.figma.com/file/NpEMY6qqb7SnDzRPuu6fr8Xu/RedmineMobile?node-id=0%3A1
+* Сделать валидацию url на входе (кинуть запрос и по респонсу определять валидность)
+* Сделать апи сервис и адаптеры на дженериках
+* Адаптировать view под макет
+* Добавить возможность проставлять часы у задачи
+* Сделать фильтрации на вью (по чекбоксу)
+
+## Макет
+
+Figma: <https://www.figma.com/file/NpEMY6qqb7SnDzRPuu6fr8Xu/RedmineMobile?node-id=0%3A1>

@@ -19,7 +19,7 @@ class IssueActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_project)
+        setContentView(R.layout.activity_issue)
         val projectId = intent.getIntExtra("project_id",-1)
         getIssues(projectId)
     }

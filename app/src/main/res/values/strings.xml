@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">RedmineApp</string>
-    
+    <string name="app_name">RedmineMobile</string>
+    <string name="enter">Вход</string>
 </resources>

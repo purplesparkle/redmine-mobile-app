@@ -9,7 +9,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Redmine app"
+            android:text="@string/app_name"
             android:fontFamily="sans-serif-condensed"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintVertical_bias="0.223" android:id="@+id/textView"/>
     <LinearLayout
-            android:layout_marginTop="275dp"
+            android:layout_marginTop="250dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -47,11 +47,12 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                 android:hint="localhost:80"/>
         <Button
-                android:text="Login"
-                android:layout_width="173dp"
-                android:background="@color/colorAccent"
-                android:textColor="#fff"
                 android:id="@+id/button"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button"
+                android:text="@string/enter"
+                android:layout_width="250dp"
+                android:textColor="#fff"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="173dp"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"

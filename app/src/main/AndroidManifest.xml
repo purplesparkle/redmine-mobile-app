@@ -19,6 +19,7 @@
         <activity android:name=".ProjectActivity"></activity>
         <activity android:name=".IssueActivity"></activity>
         <activity android:name=".TimeEntryActivity"></activity>
+        <activity android:name=".AddEntryActivity"></activity>
     </application>
 
 </manifest>

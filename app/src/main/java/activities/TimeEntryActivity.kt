@@ -17,10 +17,12 @@ import java.io.StringReader
 
 class TimeEntryActivity : AppCompatActivity() {
 
+    private var issueId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry)
-        val issueId = intent.getIntExtra("issue_id",-1)
+        issueId = intent.getIntExtra("issue_id",-1)
         fillEntries(issueId)
     }
 
@@ -47,6 +49,9 @@ class TimeEntryActivity : AppCompatActivity() {
             val adapter = TimeEntriesListViewAdapter(this, items)
             listView.adapter = adapter
             listView.setOnItemClickListener { parent, view, position, id ->
+                var intent = Intent(this, AddEntryActivity::class.java)
+                intent.putExtra("issue_id", issueId)
+                startActivity(intent)
             }
             adapter.notifyDataSetChanged()
         }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.example.redmineapp.services.StorageService
 
 
@@ -39,11 +40,23 @@ class MainActivity : AppCompatActivity() {
         val key = if (this.apiKey != null) this.apiKey?.text else ""
         val host = if (this.host != null) this.host?.text else ""
 
-        val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to host.toString())
-        StorageService().storeData(prefs, map)
+        val regex = Regex("""http(s)?://.*""")
+        val foundGroups = regex.find(host.toString())
 
-        var intent = Intent(this, ProjectActivity::class.java)
-        startActivity(intent)
+        if (foundGroups != null)
+        {
+            val str = foundGroups.groups[0]?.value
+            val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to host.toString())
+            StorageService().storeData(prefs, map)
+
+            var intent = Intent(this, ProjectActivity::class.java)
+            startActivity(intent)
+        }
+        else
+        {
+            val badURIToast = Toast.makeText(this,"Требуется указать протокол для URI (http(s)://)", Toast.LENGTH_SHORT)
+            badURIToast.show()
+        }
     }
 
     fun checkConnection(apiKey: String, host: String){

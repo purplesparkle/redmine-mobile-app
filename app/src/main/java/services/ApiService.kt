@@ -22,6 +22,10 @@ class ApiService(private val prefs: SharedPreferences)
             .addHeader("Authorization", apiKey)
     }
 
+    fun tryAuth(url: String){
+
+    }
+
     fun getProjects(urlPath: String, callback: Callback): Call {
         val request = createBaseBuilder(urlPath).build()
         var call = client.newCall(request)

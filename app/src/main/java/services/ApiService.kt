@@ -3,6 +3,8 @@ package com.example.redmineapp.services
 import android.content.SharedPreferences
 import com.example.redmineapp.data.TimeEntry
 import okhttp3.*
+import java.io.StringReader
+import android.support.v4.media.MediaDescriptionCompatApi21.Builder.build
 import org.json.JSONObject
 import org.json.JSONException
 import okhttp3.RequestBody
@@ -21,6 +23,22 @@ class ApiService(private val prefs: SharedPreferences)
         return Request.Builder()
             .url(url)
             .addHeader("X-Redmine-API-Key", apiKey)
+    }
+
+    fun requestAuth(log: String, pass: String, callback: Callback): Call {
+        val key = "host"
+        var host = StorageService().fetchByKey(prefs, key)
+
+        val url = "$host/redmine/users/current.json"
+        val credential = Credentials.basic(log, pass)
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", credential)
+            .build()
+
+        val call = client.newCall(request)
+        call.enqueue(callback)
+        return call
     }
 
     fun getProjects(urlPath: String, callback: Callback): Call {
@@ -53,8 +71,4 @@ class ApiService(private val prefs: SharedPreferences)
         call.enqueue(callback)
         return call
     }
-
-
-
 }
-

@@ -40,13 +40,11 @@ class MainActivity : AppCompatActivity() {
         val key = if (this.apiKey != null) this.apiKey?.text else ""
         val host = if (this.host != null) this.host?.text else ""
 
-        val regex = Regex("""http(s)?://.*""")
-        val foundGroups = regex.find(host.toString())
+        val uriString = validURI(host)
 
-        if (foundGroups != null)
+        if (uriString != null)
         {
-            val str = foundGroups.groups[0]?.value
-            val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to host.toString())
+            val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to uriString)
             StorageService().storeData(prefs, map)
 
             var intent = Intent(this, ProjectActivity::class.java)
@@ -57,6 +55,13 @@ class MainActivity : AppCompatActivity() {
             val badURIToast = Toast.makeText(this,"Требуется указать протокол для URI (http(s)://)", Toast.LENGTH_SHORT)
             badURIToast.show()
         }
+    }
+
+    fun validURI(uriText: CharSequence?): String?{
+        val regex = Regex("""http(s)?://.*""")
+        val foundGroups = regex.find(uriText.toString())
+        if (foundGroups != null) return foundGroups.groups[0]?.value
+        else return null
     }
 
     fun checkConnection(apiKey: String, host: String){

@@ -7,7 +7,16 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.example.redmineapp.services.ApiService
 import com.example.redmineapp.services.StorageService
+import okhttp3.Call
+import okhttp3.Response
+import java.io.IOException
+import javax.security.auth.callback.Callback
+import android.widget.ListView
+import com.beust.klaxon.Klaxon
+import data.AuthEntity
+import java.io.StringReader
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,11 +53,31 @@ class MainActivity : AppCompatActivity() {
 
         if (uriString != null)
         {
-            val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to uriString)
-            StorageService().storeData(prefs, map)
+            var self = this
+            //вписать здесь свои данные с изменённой формы
+            ApiService(prefs).requestAuth("n.filatov", "qwerty123", object : okhttp3.Callback {
+                override fun onFailure(call: Call, e: IOException){
+                    //в этом месте почему-то падает ошибка, хоть это и обработка падения запроса (не ясно...)
+                    val badURIToast = Toast.makeText(self, e.message, Toast.LENGTH_SHORT)
+                    badURIToast.show()
+                }
+                override fun onResponse(call: Call, response: Response){
+                    val body = response.body()?.string()
+                    val klaxon = Klaxon()
+                    val parsed = klaxon.parseJsonObject(StringReader(body))
+                    val dataObj = parsed.obj("user")
+                    var cred = AuthEntity(
+                        id = dataObj?.int("id")!!.toInt(),
+                        apiKey = dataObj?.string("api_key")!!.toString()
+                    )
 
-            var intent = Intent(this, ProjectActivity::class.java)
-            startActivity(intent)
+                    val map: HashMap<String, String> = hashMapOf("apiKey" to key.toString(), "host" to uriString)
+                    StorageService().storeData(prefs, map)
+
+                    var intent = Intent(self, ProjectActivity::class.java)
+                    startActivity(intent)
+                }
+            })
         }
         else
         {

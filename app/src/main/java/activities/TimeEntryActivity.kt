@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ListView
+import android.widget.TextView
 import com.beust.klaxon.Klaxon
 import com.example.redmineapp.adapters.TimeEntriesListViewAdapter
 import com.example.redmineapp.data.TimeEntry
@@ -18,11 +20,13 @@ import java.io.StringReader
 class TimeEntryActivity : AppCompatActivity() {
 
     private var issueId: Int = -1
+    private var entriesPlaceholder: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry)
         issueId = intent.getIntExtra("issue_id",-1)
+        entriesPlaceholder = findViewById(R.id.entriesPlaceholder) as TextView?
         fillEntries(issueId)
     }
 
@@ -37,7 +41,12 @@ class TimeEntryActivity : AppCompatActivity() {
                 val parsed = klaxon.parseJsonObject(StringReader(body))
                 val dataArray = parsed.array<Any>("time_entries")
                 var output = dataArray?.let { klaxon.parseFromJsonArray<TimeEntry>(it) }
-                updateView(output as List<TimeEntry>)
+                if (output != null && output.count() != 0){
+                    updateView(output)
+                }
+                else{
+                    entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
+                }
             }
         })
     }
@@ -54,6 +63,7 @@ class TimeEntryActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             adapter.notifyDataSetChanged()
+            entriesPlaceholder?.visibility = View.GONE
         }
     }
 }

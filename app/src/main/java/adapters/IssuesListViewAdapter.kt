@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.redmineapp.R
-import com.example.redmineapp.data.Issue
-import com.example.redmineapp.data.Project
+import com.example.redmineapp.data.*
+import extensions.convertRedmineDateTime
 
 class IssuesListViewAdapter(private var activity: Activity, private var items: List<Issue>)
     : BaseListViewAdapter<Issue>(activity, items) {
@@ -27,18 +27,27 @@ class IssuesListViewAdapter(private var activity: Activity, private var items: L
         }
 
         var project = items[position]
-        viewHolder.issueSubject?.text = project.subject
-        viewHolder.issueDescription?.text = project.description
+        viewHolder.issueSubject?.text = project.issueNameLabel
+        viewHolder.issueDescription?.text = project.subject
+        viewHolder.issueDate?.text = project.createdOn.convertRedmineDateTime()
+        viewHolder.issueNames?.text = project.usersNamesLabel
+        viewHolder.issueStatus?.text = project?.status?.name
         return view as View
     }
 
     class ViewHolder(row: View?) {
         var issueSubject: TextView? = null
         var issueDescription: TextView? = null
+        var issueNames: TextView? = null
+        var issueDate: TextView? = null
+        var issueStatus: TextView? = null
 
         init {
             this.issueSubject = row?.findViewById(R.id.issueSubject) as TextView?
             this.issueDescription = row?.findViewById(R.id.issueDescription) as TextView?
+            this.issueNames = row?.findViewById(R.id.issueNames) as TextView?
+            this.issueDate = row?.findViewById(R.id.issueDate) as TextView?
+            this.issueStatus = row?.findViewById(R.id.issueStatus) as TextView?
         }
     }
 }

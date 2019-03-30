@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.widget.ListView
 import com.example.redmineapp.data.Project
 import com.beust.klaxon.Klaxon
@@ -15,11 +16,14 @@ import okhttp3.Response
 import java.io.IOException
 import java.io.StringReader
 
+
+
 class ProjectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project)
+        setSupportActionBar(findViewById(R.id.toolbarTop) as Toolbar?)
         fillProjects()
     }
 

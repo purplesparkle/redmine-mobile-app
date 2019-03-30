@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ListView
+import android.widget.TextView
 import com.beust.klaxon.Klaxon
 import com.example.redmineapp.adapters.IssuesListViewAdapter
 import com.example.redmineapp.data.Issue
@@ -17,10 +19,13 @@ import java.io.StringReader
 
 class IssueActivity : AppCompatActivity() {
 
+    private var entriesPlaceholder: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_issue)
         val projectId = intent.getIntExtra("project_id",-1)
+        entriesPlaceholder = findViewById(R.id.entriesPlaceholder) as TextView?
         getIssues(projectId)
     }
 
@@ -35,7 +40,12 @@ class IssueActivity : AppCompatActivity() {
                 val parsed = klaxon.parseJsonObject(StringReader(body))
                 val dataArray = parsed.array<Any>("issues")
                 var output = dataArray?.let { klaxon.parseFromJsonArray<Issue>(it) }
-                updateView(output as List<Issue>)
+                if (output != null && output.count() != 0){
+                    updateView(output)
+                }
+                else{
+                    entriesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                }
             }
         })
     }
@@ -53,6 +63,7 @@ class IssueActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             adapter.notifyDataSetChanged()
+            entriesPlaceholder?.visibility = View.GONE
         }
     }
 }

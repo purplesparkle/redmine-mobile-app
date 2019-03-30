@@ -1,13 +1,13 @@
 package com.example.redmineapp.services
 
 import android.content.SharedPreferences
-import com.beust.klaxon.JsonArray
-import com.beust.klaxon.Klaxon
+import com.example.redmineapp.data.TimeEntry
 import okhttp3.*
 import java.io.StringReader
 import android.support.v4.media.MediaDescriptionCompatApi21.Builder.build
-
-
+import org.json.JSONObject
+import org.json.JSONException
+import okhttp3.RequestBody
 
 class ApiService(private val prefs: SharedPreferences)
 {
@@ -22,7 +22,7 @@ class ApiService(private val prefs: SharedPreferences)
         val url = "$host/redmine/$apiCall"
         return Request.Builder()
             .url(url)
-            .addHeader("Authorization", apiKey)
+            .addHeader("X-Redmine-API-Key", apiKey)
     }
 
     fun requestAuth(log: String, pass: String, callback: Callback): Call {
@@ -43,6 +43,30 @@ class ApiService(private val prefs: SharedPreferences)
 
     fun getProjects(urlPath: String, callback: Callback): Call {
         val request = createBaseBuilder(urlPath).build()
+        var call = client.newCall(request)
+        call.enqueue(callback)
+        return call
+    }
+
+    fun createEntry(hours: Int, issue: Int, comments: String, activity: Int, callback: Callback): Call{
+        val jsonObject = JSONObject()
+        try {
+            val props = JSONObject()
+            props.put("hours", hours)
+            props.put("issue_id", issue)
+            props.put("comments", comments)
+            props.put("activity_id", activity)
+            jsonObject.put("time_entry",props)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        val JSON = MediaType.parse("application/json; charset=utf-8")
+        val body = RequestBody.create(JSON, jsonObject.toString())
+
+        var urlPath = "time_entries.json"
+        val request = createBaseBuilder(urlPath).post(body).build()
+
         var call = client.newCall(request)
         call.enqueue(callback)
         return call

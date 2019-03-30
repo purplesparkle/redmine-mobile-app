@@ -1,4 +1,16 @@
 <resources>
+    <!--global-->
     <string name="app_name">RedmineMobile</string>
+    <string name="onLoadPlaceholder">Загрузка&#8230;</string>
+    <!--main-->
     <string name="enter">Вход</string>
+    <!--projects-->
+    <!--issues-->
+    <string name="issuesToggleOn">Мои</string>
+    <string name="issuesToggleOff">Все</string>
+    <string name="issuesNotifyEmpty">Нет задач</string>
+    <!--entries-->
+    <string name="entriesToggleOn">Мои</string>
+    <string name="entriesToggleOff">Все</string>
+    <string name="entriesNotifyEmpty">Нет трудозатрат</string>
 </resources>

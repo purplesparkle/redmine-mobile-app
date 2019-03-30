@@ -11,13 +11,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"/>
-    <TextView
+            android:textColor="@color/itemAdditional"/>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <TextView
             android:id="@+id/issueDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/itemMain"
+            android:layout_alignParentStart="true"
             android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/issueStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/itemAdditional"
+            android:layout_alignParentEnd="true"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textSize="14sp"
+            android:textColor="@color/itemAdditional"
+            android:ellipsize="none"
+            android:scrollHorizontally="false"
+            android:id="@+id/issueNames"/>
+        <TextView
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/itemMain"
+            android:id="@+id/issueDate"/>
+    </RelativeLayout>
 </LinearLayout>
 

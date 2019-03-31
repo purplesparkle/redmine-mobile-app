@@ -53,7 +53,7 @@ class AddEntryActivity : AppCompatActivity() {
                     else{
                         var out = response.body().toString()
                         runOnUiThread{
-                            Toast.makeText(this@AddEntryActivity,out,Toast.LENGTH_SHORT)
+                            Toast.makeText(this@AddEntryActivity,out,Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

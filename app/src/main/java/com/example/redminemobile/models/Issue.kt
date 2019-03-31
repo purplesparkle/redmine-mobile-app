@@ -1,9 +1,6 @@
-package com.example.redmineapp.data
+package com.example.redminemobile.models
 
 import com.beust.klaxon.Json
-import com.example.redmineapp.KeyValue
-import java.text.SimpleDateFormat
-import java.util.*
 
 data class Issue(
     var id: Int,

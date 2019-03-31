@@ -1,6 +1,5 @@
-package com.example.redmineapp.data
+package com.example.redminemobile.models
 
 data class RedmineResponse<T>(
-    var projects: List<T>,
     var offset: Int,
     var limit: Int)

@@ -3,8 +3,17 @@
     <string name="app_name">RedmineMobile</string>
     <string name="onLoadPlaceholder">Загрузка&#8230;</string>
     <!--main-->
-    <string name="enter">Вход</string>
+    <string name="enter">Авторизоваться</string>
+    <string name="urlPattern">""http(s)?://.*""</string>
+    <string name="urlError">Требуется указать протокол для URI (http(s)://)</string>
+    <string name="authError">Неправильный логин или пароль</string>
+    <string name="hostError">Хост не найден</string>
+
+    <string name="loginHint">Логин</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="hostHint">Url с явным протоколом</string>
     <!--projects-->
+    <string name="noDescriptionPlaceholder">Описание отсутствует</string>
     <!--issues-->
     <string name="issuesToggleOn">Мои</string>
     <string name="issuesToggleOff">Все</string>

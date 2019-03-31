@@ -1,4 +1,4 @@
-package com.example.redmineapp
+package com.example.redminemobile.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -7,14 +7,13 @@ import android.view.View
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import com.example.redmineapp.services.ApiService
+import com.example.redminemobile.services.ApiService
+import com.example.redminemobile.R
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import android.widget.ArrayAdapter
-
-
 
 class AddEntryActivity : AppCompatActivity() {
 

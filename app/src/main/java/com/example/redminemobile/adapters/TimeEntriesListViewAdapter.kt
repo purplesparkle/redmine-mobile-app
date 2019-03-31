@@ -1,4 +1,4 @@
-package com.example.redmineapp.adapters
+package com.example.redminemobile.adapters
 
 import android.app.Activity
 import android.content.Context
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.redmineapp.R
-import com.example.redmineapp.data.TimeEntry
+import com.example.redminemobile.R
+import com.example.redminemobile.models.TimeEntry
 
 class TimeEntriesListViewAdapter(private var activity: Activity, private var items: List<TimeEntry>)
     : BaseListViewAdapter<TimeEntry>(activity, items) {

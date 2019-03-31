@@ -1,14 +1,9 @@
-package com.example.redmineapp.adapters
+package com.example.redminemobile.adapters
 
 import android.app.Activity
-import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import com.example.redmineapp.R
-import com.example.redmineapp.data.Project
 
 open class BaseListViewAdapter<T>(private var activity: Activity, private var items: List<T>): BaseAdapter(){
 

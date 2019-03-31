@@ -1,6 +1,5 @@
-package extensions
+package com.example.redminemobile.extensions
 
-import com.example.redmineapp.data.Issue
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.example.redmineapp.services
+package com.example.redminemobile.services
 
 import android.content.SharedPreferences
 

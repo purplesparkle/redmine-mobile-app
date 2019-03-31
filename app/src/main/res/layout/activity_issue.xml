@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".IssueActivity">
+        tools:context=".activities.IssueActivity">
         <include layout="@layout/toolbar_top"/>
         <ToggleButton
                 android:background="#C4C4C4"
@@ -23,6 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:id="@+id/entriesPlaceholder"
+                android:id="@+id/issuesPlaceholder"
                 android:text="@string/onLoadPlaceholder"/>
 </LinearLayout>

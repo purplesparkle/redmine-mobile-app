@@ -1,4 +1,4 @@
-package com.example.redmineapp.adapters
+package com.example.redminemobile.adapters
 
 import android.app.Activity
 import android.content.Context
@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.redmineapp.R
-import com.example.redmineapp.data.*
-import extensions.convertRedmineDateTime
+import com.example.redminemobile.R
+import com.example.redminemobile.models.Issue
+import com.example.redminemobile.models.issueNameLabel
+import com.example.redminemobile.models.usersNamesLabel
+import com.example.redminemobile.extensions.convertRedmineDateTime
 
 class IssuesListViewAdapter(private var activity: Activity, private var items: List<Issue>)
     : BaseListViewAdapter<Issue>(activity, items) {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TimeEntryActivity">
+    tools:context=".activities.TimeEntryActivity">
     <include layout="@layout/toolbar_top"/>
     <ToggleButton
         android:background="#C4C4C4"

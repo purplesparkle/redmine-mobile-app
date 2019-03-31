@@ -1,7 +1,4 @@
-package com.example.redmineapp.data
-
-import com.beust.klaxon.Json
-import java.util.*
+package com.example.redminemobile.models
 
 data class TimeEntry(
     var id: Int,

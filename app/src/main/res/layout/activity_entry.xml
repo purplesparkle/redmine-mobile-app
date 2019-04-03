@@ -8,13 +8,13 @@
     tools:context=".activities.TimeEntryActivity">
     <include layout="@layout/toolbar_top"/>
     <ToggleButton
-        android:background="#C4C4C4"
-        android:id="@+id/toggle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textOn="@string/entriesToggleOn"
-        android:textOff="@string/entriesToggleOff"/>
+            android:background="#C4C4C4"
+            android:id="@+id/toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textOn="@string/entriesToggleOn"
+            android:textOff="@string/entriesToggleOff" android:text="+46546"/>
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

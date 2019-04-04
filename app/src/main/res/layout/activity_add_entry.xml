@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="316dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.088"/>
-    <EditText android:id="@+id/inputTaskName"
+    <EditText android:id="@+id/addEntryIssue"
               android:inputType="text"
               android:layout_width="177dp" android:layout_height="26dp"
               style="@style/InputField"
@@ -99,20 +99,22 @@
               android:layout_marginBottom="16dp" app:layout_constraintBottom_toTopOf="@+id/inputDate"/>
 
     <EditText
+            android:id="@+id/inputDate"
             android:layout_width="178dp" android:layout_height="25dp"
             android:inputType="date"
             style="@style/InputField"
-            android:hint="@string/hintDate" android:textSize="14sp" android:id="@+id/inputDate"
+            android:hint="@string/hintDate" android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="12dp" app:layout_constraintBottom_toTopOf="@+id/editText4"
+            android:layout_marginBottom="12dp" app:layout_constraintBottom_toTopOf="@+id/addEntryHours"
             app:layout_constraintHorizontal_bias="0.728"/>
 
     <EditText
+            android:id="@+id/addEntryHours"
             android:layout_width="177dp" android:layout_height="26dp"
             android:inputType="number"
             style="@style/InputField"
-            android:textSize="14sp" android:hint="@string/hintWorkTime" android:id="@+id/editText4"
+            android:textSize="14sp" android:hint="@string/hintWorkTime"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView5"
             android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.647"
@@ -121,7 +123,7 @@
             android:layout_width="318dp" android:layout_height="84dp"
             android:inputType="text"
             style="@style/InputField"
-            android:textSize="14sp" android:hint="@string/hintComment" android:id="@+id/editText5"
+            android:textSize="14sp" android:hint="@string/hintComment" android:id="@+id/addEntryComments"
             android:gravity="top"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
@@ -135,7 +137,7 @@
             android:id="@+id/spinner" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toEndOf="@+id/textView6" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/editText4"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/addEntryHours"
             app:layout_constraintHorizontal_bias="0.389" app:layout_constraintVertical_bias="0.008"/>
     <Button
             android:text="@string/buttonBackCaption"
@@ -143,7 +145,7 @@
             android:layout_width="151dp"
             android:layout_height="wrap_content"
             android:id="@+id/buttonBack" android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText5" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addEntryComments" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="52dp"/>
     <Button
             android:text="@string/buttonAddCaption"
@@ -151,7 +153,7 @@
             android:layout_width="151dp"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAdd" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="44dp"
-            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/editText5"/>
+            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/addEntryComments"/>
 
 
 </android.support.constraint.ConstraintLayout>

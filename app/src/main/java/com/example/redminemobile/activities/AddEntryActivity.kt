@@ -29,7 +29,7 @@ class AddEntryActivity : AppCompatActivity() {
     }
 
     fun initSpinner(){
-        var dropdown = findViewById(R.id.addEntryActivity) as Spinner?
+        var dropdown = findViewById(R.id.spinner) as Spinner?
         val items = arrayOf(8, 9)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
         dropdown?.adapter = adapter
@@ -38,7 +38,7 @@ class AddEntryActivity : AppCompatActivity() {
     fun sendRequest(view: View){
         val hoursView= findViewById(R.id.addEntryHours) as TextView?
         val comment = findViewById(R.id.addEntryComments) as TextView?
-        var dropdown = findViewById(R.id.addEntryActivity) as Spinner?
+        var dropdown = findViewById(R.id.spinner) as Spinner?
         val activity = dropdown?.selectedItem as Int
 
         val hours = hoursView?.text.toString().toInt()

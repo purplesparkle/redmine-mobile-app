@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import com.beust.klaxon.Klaxon
@@ -22,19 +23,26 @@ class TimeEntryActivity : AppCompatActivity() {
 
     private var issueId: Int = -1
     private var entriesPlaceholder: TextView? = null
+    private var listView: ListView? = null
+    private var loadMoreButton: Button? = null
+    private var offset: Int = 0
+    private var quantity: Int = 4
+    private var isAdapterCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry)
         issueId = intent.getIntExtra("issue_id",-1)
         entriesPlaceholder = findViewById(R.id.entriesPlaceholder) as TextView?
-        fillEntries(issueId)
+        loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
+        listView = findViewById(R.id.listView) as ListView?
+        fillEntries()
     }
 
-    private fun fillEntries(issueId: Int)
+    private fun fillEntries()
     {
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
-        ApiService(prefs).getProjects("time_entries.json?issue_id=$issueId", object : Callback {
+        ApiService(prefs).requestGet("time_entries.json", offset, quantity, additionalParams = "issue_id=$issueId", callback =  object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
@@ -43,16 +51,38 @@ class TimeEntryActivity : AppCompatActivity() {
                 val dataArray = parsed.array<Any>("time_entries")
                 var output = dataArray?.let { klaxon.parseFromJsonArray<TimeEntry>(it) }
                 if (output != null && output.count() != 0){
-                    updateView(output)
+                    updateView(output as ArrayList<TimeEntry>)
                 }
-                else{
+                else if (offset==0){
                     entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
                 }
             }
         })
     }
 
-    private fun updateView(items: List<TimeEntry>)
+    private fun updateView(items: ArrayList<TimeEntry>)
+    {
+        runOnUiThread{
+            var localItems: ArrayList<TimeEntry> = items
+            if (items.count() == quantity){
+                offset += quantity -1
+                localItems = ArrayList(items.dropLast(1))
+            }
+            else
+            {
+                loadMoreButton?.visibility = View.GONE
+            }
+
+            if (isAdapterCreated){
+                addItemsToAdapter(localItems)
+            }
+            else{
+                createAdapter(localItems)
+            }
+        }
+    }
+
+    private fun createAdapter(items: ArrayList<TimeEntry>)
     {
         runOnUiThread {
             val listView = findViewById(R.id.listView) as ListView
@@ -65,6 +95,16 @@ class TimeEntryActivity : AppCompatActivity() {
             }
             adapter.notifyDataSetChanged()
             entriesPlaceholder?.visibility = View.GONE
+            isAdapterCreated = true
         }
+    }
+
+    private fun addItemsToAdapter(projects: ArrayList<TimeEntry>){
+        val adapter = listView?.adapter as TimeEntriesListViewAdapter
+        adapter.addItems(projects)
+    }
+
+    fun loadMore(view: View?){
+        fillEntries()
     }
 }

@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.redminemobile.R
 import com.example.redminemobile.models.TimeEntry
 
-class TimeEntriesListViewAdapter(private var activity: Activity, private var items: List<TimeEntry>)
+class TimeEntriesListViewAdapter(private var activity: Activity, private var items: ArrayList<TimeEntry>)
     : BaseListViewAdapter<TimeEntry>(activity, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

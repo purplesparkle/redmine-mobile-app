@@ -11,7 +11,7 @@ import com.example.redminemobile.R
 import com.example.redminemobile.extensions.convertRedmineDateTime
 import com.example.redminemobile.models.Project
 
-class ProjectsListViewAdapter(private var activity: Activity, private var items: List<Project>)
+class ProjectsListViewAdapter(private var activity: Activity, private var items: ArrayList<Project>)
     : BaseListViewAdapter<Project>(activity, items) {
 
    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

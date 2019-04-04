@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import com.beust.klaxon.Klaxon
@@ -21,19 +22,27 @@ import java.io.StringReader
 class IssueActivity : AppCompatActivity() {
 
     private var issuesPlaceholder: TextView? = null
+    private var listView: ListView? = null
+    private var loadMoreButton: Button? = null
+    private var projectId: Int = -1
+    private var offset: Int = 0
+    private var quantity: Int = 4
+    private var isAdapterCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_issue)
-        val projectId = intent.getIntExtra("project_id",-1)
+        projectId = intent.getIntExtra("project_id",-1)
         issuesPlaceholder = findViewById(R.id.issuesPlaceholder) as TextView?
-        getIssues(projectId)
+        loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
+        listView = findViewById(R.id.listView) as ListView?
+        getIssues()
     }
 
-    private fun getIssues(projectId: Int)
+    private fun getIssues()
     {
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
-        ApiService(prefs).getProjects("issues.json?project_id=$projectId", object : Callback {
+        ApiService(prefs).requestGet("issues.json", offset, quantity, additionalParams = "project_id=$projectId", callback =  object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
@@ -42,22 +51,21 @@ class IssueActivity : AppCompatActivity() {
                 val dataArray = parsed.array<Any>("issues")
                 var output = dataArray?.let { klaxon.parseFromJsonArray<Issue>(it) }
                 if (output != null && output.count() != 0){
-                    updateView(output)
+                    updateView(ArrayList<Issue>(output))
                 }
-                else{
+                else if (offset == 0){
                     issuesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
                 }
             }
         })
     }
 
-    private fun updateView(items: List<Issue>)
+    private fun createAdapter(items: ArrayList<Issue>)
     {
         runOnUiThread {
-            val listView = findViewById(R.id.listView) as ListView
             val adapter = IssuesListViewAdapter(this, items)
-            listView.adapter = adapter
-            listView.setOnItemClickListener { parent, view, position, id ->
+            listView?.adapter = adapter
+            listView?.setOnItemClickListener { parent, view, position, id ->
                 val id = items[position].id
                 var intent = Intent(this, TimeEntryActivity::class.java)
                 intent.putExtra("issue_id", id)
@@ -65,6 +73,38 @@ class IssueActivity : AppCompatActivity() {
             }
             adapter.notifyDataSetChanged()
             issuesPlaceholder?.visibility = View.GONE
+            isAdapterCreated = true
         }
+    }
+
+    private fun updateView(items: ArrayList<Issue>)
+    {
+        runOnUiThread{
+            var localItems: ArrayList<Issue> = items
+            if (items.count() == quantity){
+                offset += quantity -1
+                localItems = ArrayList(items.dropLast(1))
+            }
+            else
+            {
+                loadMoreButton?.visibility = View.GONE
+            }
+
+            if (isAdapterCreated){
+                addItemsToAdapter(localItems)
+            }
+            else{
+                createAdapter(localItems)
+            }
+        }
+    }
+
+    private fun addItemsToAdapter(projects: ArrayList<Issue>){
+        val adapter = listView?.adapter as IssuesListViewAdapter
+        adapter.addItems(projects)
+    }
+
+    fun loadMore(View: View?){
+        getIssues()
     }
 }

@@ -2,6 +2,7 @@
     <!--global-->
     <string name="app_name">RedmineMobile</string>
     <string name="onLoadPlaceholder">Загрузка&#8230;</string>
+    <string name="loadMoreButton">Загрузить ещё</string>
     <!--main-->
     <string name="enter">Авторизоваться</string>
     <string name="urlPattern">""http(s)?://.*""</string>

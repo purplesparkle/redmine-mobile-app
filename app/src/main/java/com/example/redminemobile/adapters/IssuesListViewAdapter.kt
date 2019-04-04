@@ -12,7 +12,7 @@ import com.example.redminemobile.models.issueNameLabel
 import com.example.redminemobile.models.usersNamesLabel
 import com.example.redminemobile.extensions.convertRedmineDateTime
 
-class IssuesListViewAdapter(private var activity: Activity, private var items: List<Issue>)
+class IssuesListViewAdapter(private var activity: Activity, private var items: ArrayList<Issue>)
     : BaseListViewAdapter<Issue>(activity, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

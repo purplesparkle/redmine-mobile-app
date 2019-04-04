@@ -15,14 +15,6 @@
             app:layout_constraintTop_toTopOf="parent" android:id="@+id/linearLayout" android:orientation="vertical">
         <include layout="@layout/toolbar_top"/>
 
-        <!--<ToggleButton
-                    android:background="#C4C4C4"
-                    android:id="@+id/toggle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textOn="@string/issuesToggleOn"
-                    android:textOff="@string/issuesToggleOff"/>!-->
         <android.support.v7.widget.Toolbar
                 android:layout_width="411dp"
                 android:layout_height="54dp"

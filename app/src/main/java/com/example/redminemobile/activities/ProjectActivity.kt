@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
@@ -29,6 +30,7 @@ class ProjectActivity : AppCompatActivity() {
     private var quantity = 3
     private var offset = 0
     private var isAdapterCreated = false
+    private val mSwipeRefreshLayout: android.support.v4.widget.SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,11 @@ class ProjectActivity : AppCompatActivity() {
         projectsPlaceholder = findViewById(R.id.projectsPlaceholder) as TextView?
         listView = findViewById(R.id.listView) as ListView?
         fillProjects()
+        val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshProject) as SwipeRefreshLayout
+        mSwipeRefreshLayout.setOnRefreshListener{
+            fillProjects()
+            mSwipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun fillProjects()

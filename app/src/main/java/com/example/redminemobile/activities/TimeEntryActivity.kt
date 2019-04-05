@@ -3,6 +3,7 @@ package com.example.redminemobile.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
@@ -28,6 +29,7 @@ class TimeEntryActivity : AppCompatActivity() {
     private var offset: Int = 0
     private var quantity: Int = 4
     private var isAdapterCreated = false
+    private val mSwipeRefreshLayout: android.support.v4.widget.SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,11 @@ class TimeEntryActivity : AppCompatActivity() {
         loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
         listView = findViewById(R.id.listView) as ListView?
         fillEntries()
+        val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshEntry) as SwipeRefreshLayout
+        mSwipeRefreshLayout.setOnRefreshListener{
+            fillEntries()
+            mSwipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun fillEntries()

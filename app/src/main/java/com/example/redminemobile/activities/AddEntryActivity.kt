@@ -14,6 +14,10 @@ import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
 import android.widget.ArrayAdapter
+import com.beust.klaxon.JsonReader
+import com.beust.klaxon.Klaxon
+import com.example.redminemobile.models.KeyValue
+import java.io.StringReader
 
 class AddEntryActivity : AppCompatActivity() {
 
@@ -30,8 +34,23 @@ class AddEntryActivity : AppCompatActivity() {
 
     fun initSpinner(){
         var dropdown = findViewById(R.id.spinner) as Spinner?
-        val items = arrayOf(8, 9)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+
+        val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
+        var itemList = emptyList<KeyValue>()
+        ApiService(prefs).requestEntryActivities(callback =  object : Callback {
+            override fun onFailure(call: Call, e: IOException) {}
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                val klaxon = Klaxon()
+                val parsed = klaxon.parseJsonObject(StringReader(body))
+                val dataArray = parsed.array<Any>("time_entry_activities")
+                var output = dataArray?.let { klaxon.parseFromJsonArray<KeyValue>(it) }
+                itemList = output!!
+            }
+        })
+
+        //val items = arrayOf(8, 9)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, itemList)
         dropdown?.adapter = adapter
     }
 

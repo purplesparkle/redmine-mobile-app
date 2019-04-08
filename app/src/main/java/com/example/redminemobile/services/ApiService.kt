@@ -35,6 +35,13 @@ class ApiService(private val prefs: SharedPreferences)
         return call
     }
 
+    fun requestEntryActivities(callback: Callback): Call{
+        val request = createBaseBuilder("enumerations/time_entry_activities.json").build()
+        var call = client.newCall(request)
+        call.enqueue(callback)
+        return call
+    }
+
     fun requestGet(urlPath: String, offset: Int = 0, limit: Int = 11, additionalParams: String = "", callback: Callback): Call {
         val baseCall = "$urlPath?offset=$offset&limit=$limit"
         val apiCall = if (additionalParams != "") "$baseCall&$additionalParams" else baseCall

@@ -7,12 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 22
     defaultConfig {
-        applicationId "com.example.redmineapp"
+        applicationId "com.example.redminemobile.activities"
         minSdkVersion 22
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

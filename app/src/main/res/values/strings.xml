@@ -1,4 +1,40 @@
 <resources>
-    <string name="app_name">RedmineApp</string>
-    
+    <!--global-->
+    <string name="app_name">RedmineMobile</string>
+    <string name="onLoadPlaceholder">Загрузка&#8230;</string>
+    <string name="loadMoreButton">Загрузить ещё</string>
+    <!--main-->
+    <string name="enter">Авторизоваться</string>
+    <string name="urlPattern">""http(s)?://.*""</string>
+    <string name="urlError">Требуется указать протокол для URI (http(s)://)</string>
+    <string name="authError">Неправильный логин или пароль</string>
+    <string name="hostError">Хост не найден</string>
+    <string name="incorrectHost">Неправильный хост</string>
+    <string name="loginHint">Логин</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="hostHint">Url с явным протоколом</string>
+    <!--projects-->
+    <string name="noDescriptionPlaceholder">Описание отсутствует</string>
+    <!--issues-->
+    <string name="issuesToggleOn">Мои</string>
+    <string name="issuesToggleOff">Все</string>
+    <string name="issuesNotifyEmpty">Нет задач</string>
+    <string name="myIssues">Мои задачи</string>
+    <!--entries-->
+    <string name="entriesToggleOn">Мои</string>
+    <string name="entriesToggleOff">Все</string>
+    <string name="entriesNotifyEmpty">Нет трудозатрат</string>
+    <string name="taskCaption">Задача:</string>
+    <string name="dateCaption">Дата:</string>
+    <string name="timeCaption">Время:</string>
+    <string name="activityCaption">Деятельность</string>
+    <string name="workingCaption">Трудозатраты</string>
+    <string name="commentCaption">Комментарий:</string>
+    <string name="_322">#322</string>
+    <string name="hintDate">01.12.23</string>
+    <string name="hintWorkTime">1,5</string>
+    <string name="hintComment">Здесь мой коммент…</string>
+    <string name="buttonBackCaption">Назад</string>
+    <string name="buttonAddCaption">Добавить</string>
+    <string name="myEntries">Мои трудозатраты</string>
 </resources>

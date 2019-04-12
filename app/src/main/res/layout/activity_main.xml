@@ -5,22 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Redmine app"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintVertical_bias="0.223" android:id="@+id/textView"/>
+        android:background="#394956"
+        tools:context=".activities.MainActivity">
     <LinearLayout
-            android:layout_marginTop="275dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -28,34 +15,36 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical|center_horizontal|center"
             app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="125dp"
+                android:src="@drawable/full_logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        </ImageView>
         <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/apiKey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:hint="Api key"/>
+                android:id="@+id/authLogin"
+                style="@style/LoginField"
+                android:inputType="text"
+                android:hint="@string/loginHint"/>
         <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
+                android:id="@+id/authPassword"
+                style="@style/LoginField"
+                android:inputType="textPassword"
+                android:hint="@string/passwordHint"/>
+        <EditText
                 android:id="@+id/host"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:hint="localhost:80"/>
+                style="@style/LoginField"
+                android:inputType="textUri"
+                android:hint="@string/hostHint"/>
         <Button
-                android:text="Login"
-                android:layout_width="173dp"
-                android:background="@color/colorAccent"
-                android:textColor="#fff"
                 android:id="@+id/button"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="173dp"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:onClick="singIn"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button"
+                android:text="@string/enter"
+                android:layout_width="250dp"
+                android:textColor="#fff"
+                android:layout_height="wrap_content"
+                android:onClick="singIn"/>
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

@@ -66,7 +66,9 @@ class ProjectActivity : AppCompatActivity() {
                     updateView(ArrayList(output))
                 }
                 else if (offset == 0){
-                    projectsPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    runOnUiThread{
+                        projectsPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    }
                 }
             }
         })

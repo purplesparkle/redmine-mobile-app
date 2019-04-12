@@ -91,7 +91,9 @@ class TimeEntryActivity : AppCompatActivity() {
                     updateView(output as ArrayList<TimeEntry>)
                 }
                 else if (offset==0){
-                    entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
+                    runOnUiThread{
+                        entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
+                    }
                 }
             }
         })

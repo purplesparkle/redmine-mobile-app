@@ -91,7 +91,9 @@ class IssueActivity : AppCompatActivity() {
                     updateView(ArrayList(output))
                 }
                 else if (offset == 0){
-                    issuesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    runOnUiThread {
+                        issuesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    }
                 }
             }
         })

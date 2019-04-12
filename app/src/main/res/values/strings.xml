@@ -9,7 +9,7 @@
     <string name="urlError">Требуется указать протокол для URI (http(s)://)</string>
     <string name="authError">Неправильный логин или пароль</string>
     <string name="hostError">Хост не найден</string>
-
+    <string name="incorrectHost">Неправильный хост</string>
     <string name="loginHint">Логин</string>
     <string name="passwordHint">Пароль</string>
     <string name="hostHint">Url с явным протоколом</string>

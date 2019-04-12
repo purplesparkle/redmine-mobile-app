@@ -16,6 +16,7 @@ import java.io.IOException
 import com.beust.klaxon.Klaxon
 import com.example.redminemobile.models.UserData
 import java.io.StringReader
+import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,25 +66,30 @@ class MainActivity : AppCompatActivity() {
                         response.code() == 401 -> notify(getString(R.string.authError))
                         response.code() == 404 -> notify(getString(R.string.hostError))
                         else -> {
-                            val body = response.body()?.string()
-                            val klaxon = Klaxon()
-                            val parsed = klaxon.parseJsonObject(StringReader(body))
-                            val dataObj = parsed.obj("user")
-                            var output = UserData(
-                                id = dataObj?.int("id")!!.toInt(),
-                                apiKey = dataObj?.string("api_key")!!.toString()
-                            )
+                            try {
+                                val body = response.body()?.string()
+                                val klaxon = Klaxon()
+                                val parsed = klaxon.parseJsonObject(StringReader(body))
+                                val dataObj = parsed.obj("user")
+                                var output = UserData(
+                                    id = dataObj?.int("id")!!.toInt(),
+                                    apiKey = dataObj?.string("api_key")!!.toString()
+                                )
 
-                            val map: HashMap<String, String> = hashMapOf(
-                                "apiKey" to output.apiKey,
-                                "user_id" to output.id.toString(),
-                                "host" to host,
-                                "login" to log,
-                                "password" to pass)
-                            StorageService().storeData(prefs, map)
+                                val map: HashMap<String, String> = hashMapOf(
+                                    "apiKey" to output.apiKey,
+                                    "user_id" to output.id.toString(),
+                                    "host" to host,
+                                    "login" to log,
+                                    "password" to pass)
+                                StorageService().storeData(prefs, map)
 
-                            var intent = Intent(this@MainActivity, ProjectActivity::class.java)
-                            startActivity(intent)
+                                var intent = Intent(this@MainActivity, ProjectActivity::class.java)
+                                startActivity(intent)
+                            }
+                            catch (ex: Exception){
+                                notify(getString(R.string.incorrectHost))
+                            }
                         }
                     }
                 }

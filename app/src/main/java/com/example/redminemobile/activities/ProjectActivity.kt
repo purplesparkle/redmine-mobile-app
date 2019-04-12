@@ -30,7 +30,6 @@ class ProjectActivity : AppCompatActivity() {
     private var quantity = 3
     private var offset = 0
     private var isAdapterCreated = false
-    private val mSwipeRefreshLayout: android.support.v4.widget.SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +39,15 @@ class ProjectActivity : AppCompatActivity() {
         projectsPlaceholder = findViewById(R.id.projectsPlaceholder) as TextView?
         listView = findViewById(R.id.listView) as ListView?
         fillProjects()
+        configureRefresh()
+    }
+
+    private fun configureRefresh(){
         val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshProject) as SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener{
-            fillProjects()
-            mSwipeRefreshLayout.isRefreshing = false
+            isAdapterCreated = false
+            offset = 0
+            loadMoreButton?.visibility = View.VISIBLE
         }
     }
 

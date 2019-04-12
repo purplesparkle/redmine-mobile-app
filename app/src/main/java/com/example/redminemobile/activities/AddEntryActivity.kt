@@ -32,7 +32,7 @@ class AddEntryActivity : AppCompatActivity() {
         initSpinner()
     }
 
-    fun initSpinner(){
+    private fun initSpinner(){
         var dropdown = findViewById(R.id.spinner) as Spinner?
 
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
@@ -48,8 +48,6 @@ class AddEntryActivity : AppCompatActivity() {
                 itemList = output!!
             }
         })
-
-        //val items = arrayOf(8, 9)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, itemList)
         dropdown?.adapter = adapter
     }

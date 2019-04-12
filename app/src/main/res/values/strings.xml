@@ -19,6 +19,7 @@
     <string name="issuesToggleOn">Мои</string>
     <string name="issuesToggleOff">Все</string>
     <string name="issuesNotifyEmpty">Нет задач</string>
+    <string name="myIssues">Мои задачи</string>
     <!--entries-->
     <string name="entriesToggleOn">Мои</string>
     <string name="entriesToggleOff">Все</string>
@@ -35,4 +36,5 @@
     <string name="hintComment">Здесь мой коммент…</string>
     <string name="buttonBackCaption">Назад</string>
     <string name="buttonAddCaption">Добавить</string>
+    <string name="myEntries">Мои трудозатраты</string>
 </resources>

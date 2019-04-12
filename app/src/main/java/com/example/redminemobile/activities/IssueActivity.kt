@@ -15,6 +15,7 @@ import com.example.redminemobile.adapters.IssuesListViewAdapter
 import com.example.redminemobile.models.Issue
 import com.example.redminemobile.services.ApiService
 import com.example.redminemobile.R
+import com.example.redminemobile.services.StorageService
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -30,7 +31,6 @@ class IssueActivity : AppCompatActivity() {
     private var offset: Int = 0
     private var quantity: Int = 4
     private var isAdapterCreated = false
-    private val mSwipeRefreshLayout: android.support.v4.widget.SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,35 +40,44 @@ class IssueActivity : AppCompatActivity() {
         loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
         listView = findViewById(R.id.listView) as ListView?
         getIssues()
+        configureRefresh()
+        configureSwitch()
+    }
+
+    private fun configureRefresh(){
         val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshIssue) as SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener{
-            isAdapterCreated = false
-            offset = 0
+            reset()
             getIssues()
             mSwipeRefreshLayout.isRefreshing = false
         }
+    }
+
+    private fun configureSwitch(){
         val mSwitchCompat = findViewById(R.id.switchCompatIssues) as SwitchCompat
         mSwitchCompat.setOnCheckedChangeListener { switchCompatIssues, isChecked ->
-            isAdapterCreated = false
-            offset = 0
+            reset()
             if (isChecked) {
-                getIssues(true) //Передается значение switchCompat, если true, значит switchCompat ВКЛ, по дефолту выключен (false)
+                getIssues(true)
             } else {
                 getIssues()
             }
         }
     }
 
+    private fun reset(){
+        isAdapterCreated = false
+        offset = 0
+        loadMoreButton?.visibility = View.VISIBLE
+    }
+
     private fun getIssues(isChecked: Boolean = false)
     {
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
-        val id = prefs.getString("user_id","")
-        var additionalParams = ""
+        val id = StorageService().fetchByKey(prefs,"user_id")
+        var additionalParams = "project_id=$projectId"
         if(isChecked){
-            additionalParams = "project_id=$projectId&assigned_to_id=$id"
-        }
-        else{
-            additionalParams = "project_id=$projectId"
+            additionalParams += "&assigned_to_id=$id"
         }
         ApiService(prefs).requestGet("issues.json", offset, quantity, additionalParams = additionalParams, callback =  object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
@@ -79,10 +88,12 @@ class IssueActivity : AppCompatActivity() {
                 val dataArray = parsed.array<Any>("issues")
                 var output = dataArray?.let { klaxon.parseFromJsonArray<Issue>(it) }
                 if (output != null && output.count() != 0){
-                    updateView(ArrayList<Issue>(output))
+                    updateView(ArrayList(output))
                 }
                 else if (offset == 0){
-                    issuesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    runOnUiThread {
+                        issuesPlaceholder?.text = getString(R.string.issuesNotifyEmpty)
+                    }
                 }
             }
         })

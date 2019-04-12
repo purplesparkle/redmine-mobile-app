@@ -12,14 +12,13 @@
     android:orientation="vertical"
     tools:context=".activities.TimeEntryActivity">
     <include layout="@layout/toolbar_top"/>
-    <ToggleButton
-            android:background="#C4C4C4"
-            android:id="@+id/toggle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textOn="@string/entriesToggleOn"
-            android:textOff="@string/entriesToggleOff" android:text="+46546"/>
+    <android.support.v7.widget.SwitchCompat
+            android:paddingLeft="10dp"
+            android:id="@+id/switchCompatEntries"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:text="@string/myEntries"/>
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

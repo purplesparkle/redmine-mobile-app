@@ -51,7 +51,7 @@
                         android:textColor="@color/abc_search_url_text_selected"
                         tools:layout_editor_absoluteY="138dp" tools:layout_editor_absoluteX="52dp"/>
                 <TextView
-                        android:text="@string/dateCaption"
+                        android:text="@string/timeCaption"
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                         android:textColor="@color/abc_search_url_text_selected"
                         tools:layout_editor_absoluteY="180dp" tools:layout_editor_absoluteX="52dp"/>
                 <TextView
-                        android:text="@string/timeCaption"
+                        android:text="@string/activityCaption"
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_height="wrap_content"
@@ -68,15 +68,6 @@
                         android:textColorLink="@color/abc_search_url_text_pressed"
                         android:textColor="@color/abc_search_url_text_selected"
                         tools:layout_editor_absoluteY="220dp" tools:layout_editor_absoluteX="52dp"/>
-                <TextView
-                        android:text="@string/activityCaprion"
-                        android:layout_width="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView6"
-                        android:textColorLink="@color/abc_search_url_text_pressed"
-                        android:textColor="@color/abc_search_url_text_selected"
-                        tools:layout_editor_absoluteY="262dp" tools:layout_editor_absoluteX="52dp"/>
                 <TextView
                         android:text="@string/commentCaption"
                         android:layout_width="wrap_content"
@@ -95,16 +86,9 @@
                           android:layout_marginBottom="6dp"
                           android:layout_width="177dp" android:layout_height="26dp"
                           style="@style/InputField"
+                          android:enabled="false"
                           android:hint="@string/_322" android:textSize="14sp"
                           tools:layout_editor_absoluteY="138dp" tools:layout_editor_absoluteX="193dp"/>
-                <EditText
-                        android:id="@+id/inputDate"
-                        android:layout_width="177dp" android:layout_height="25dp"
-                        android:layout_marginBottom="6dp"
-                        android:inputType="date"
-                        style="@style/InputField"
-                        android:hint="@string/hintDate" android:textSize="14sp"
-                        tools:layout_editor_absoluteY="180dp" tools:layout_editor_absoluteX="192dp"/>
                 <EditText
                         android:id="@+id/addEntryHours"
                         android:layout_width="177dp" android:layout_height="26dp"
@@ -154,6 +138,7 @@
                     android:layout_width="151dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/buttonAdd"
+                    android:onClick="sendRequest"
                     tools:layout_editor_absoluteY="439dp" tools:layout_editor_absoluteX="219dp"/>
         </LinearLayout>
     </LinearLayout>

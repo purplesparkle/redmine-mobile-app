@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SwitchCompat
 import android.view.View
 import android.widget.Button
 import android.widget.ListView
@@ -14,6 +15,7 @@ import com.example.redminemobile.adapters.TimeEntriesListViewAdapter
 import com.example.redminemobile.models.TimeEntry
 import com.example.redminemobile.services.ApiService
 import com.example.redminemobile.R
+import com.example.redminemobile.services.StorageService
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -21,15 +23,13 @@ import java.io.IOException
 import java.io.StringReader
 
 class TimeEntryActivity : AppCompatActivity() {
-
     private var issueId: Int = -1
     private var entriesPlaceholder: TextView? = null
     private var listView: ListView? = null
     private var loadMoreButton: Button? = null
     private var offset: Int = 0
-    private var quantity: Int = 4
+    private var quantity: Int = 5
     private var isAdapterCreated = false
-    private val mSwipeRefreshLayout: android.support.v4.widget.SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +38,48 @@ class TimeEntryActivity : AppCompatActivity() {
         entriesPlaceholder = findViewById(R.id.entriesPlaceholder) as TextView?
         loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
         listView = findViewById(R.id.listView) as ListView?
+        configureRefresh()
+        configureSwitch()
         fillEntries()
+    }
+
+    private fun configureRefresh(){
         val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshEntry) as SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener{
+            reset()
             fillEntries()
             mSwipeRefreshLayout.isRefreshing = false
         }
     }
 
-    private fun fillEntries()
+    private fun configureSwitch(){
+        val mSwitchCompat = findViewById(R.id.switchCompatEntries) as SwitchCompat
+        mSwitchCompat.setOnCheckedChangeListener { switchCompatIssues, isChecked ->
+            isAdapterCreated = false
+            offset = 0
+            if (isChecked) {
+                fillEntries(true)
+            } else {
+                fillEntries()
+            }
+        }
+    }
+
+    private fun reset(){
+        isAdapterCreated = false
+        offset = 0
+        loadMoreButton?.visibility = View.VISIBLE
+    }
+
+    private fun fillEntries(isFilterByCurrentUser: Boolean = false)
     {
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
-        ApiService(prefs).requestGet("time_entries.json", offset, quantity, additionalParams = "issue_id=$issueId", callback =  object : Callback {
+        val id = StorageService().fetchByKey(prefs,"user_id")
+        var additionalParams = "issue_id=$issueId"
+        if(isFilterByCurrentUser){
+            additionalParams += "&user_id=$id"
+        }
+        ApiService(prefs).requestGet("time_entries.json", offset, quantity, additionalParams = additionalParams, callback =  object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
@@ -61,7 +91,9 @@ class TimeEntryActivity : AppCompatActivity() {
                     updateView(output as ArrayList<TimeEntry>)
                 }
                 else if (offset==0){
-                    entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
+                    runOnUiThread{
+                        entriesPlaceholder?.text = getString(R.string.entriesNotifyEmpty)
+                    }
                 }
             }
         })

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SwitchCompat
 import android.view.View
 import android.widget.Button
 import android.widget.ListView
@@ -41,15 +42,35 @@ class IssueActivity : AppCompatActivity() {
         getIssues()
         val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshIssue) as SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener{
+            isAdapterCreated = false
+            offset = 0
             getIssues()
             mSwipeRefreshLayout.isRefreshing = false
         }
+        val mSwitchCompat = findViewById(R.id.switchCompatIssues) as SwitchCompat
+        mSwitchCompat.setOnCheckedChangeListener { switchCompatIssues, isChecked ->
+            isAdapterCreated = false
+            offset = 0
+            if (isChecked) {
+                getIssues(true) //Передается значение switchCompat, если true, значит switchCompat ВКЛ, по дефолту выключен (false)
+            } else {
+                getIssues()
+            }
+        }
     }
 
-    private fun getIssues()
+    private fun getIssues(isChecked: Boolean = false)
     {
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
-        ApiService(prefs).requestGet("issues.json", offset, quantity, additionalParams = "project_id=$projectId", callback =  object : Callback {
+        val id = prefs.getString("user_id","")
+        var additionalParams = ""
+        if(isChecked){
+            additionalParams = "project_id=$projectId&assigned_to_id=$id"
+        }
+        else{
+            additionalParams = "project_id=$projectId"
+        }
+        ApiService(prefs).requestGet("issues.json", offset, quantity, additionalParams = additionalParams, callback =  object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()

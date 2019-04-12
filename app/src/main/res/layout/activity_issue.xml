@@ -12,19 +12,20 @@
         android:orientation="vertical"
         tools:context=".activities.IssueActivity">
         <include layout="@layout/toolbar_top"/>
-        <ToggleButton
-                android:background="#C4C4C4"
-                android:id="@+id/toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textOn="@string/issuesToggleOn"
-                android:textOff="@string/issuesToggleOff"/>
         <ListView
                 android:id="@+id/listView"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"/>
+        <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switchCompatIssues"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"
+                android:checked="false"
+                android:text="My issues "/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

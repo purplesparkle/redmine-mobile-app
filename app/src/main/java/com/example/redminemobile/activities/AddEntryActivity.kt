@@ -63,6 +63,20 @@ class AddEntryActivity : AppCompatActivity() {
         val activityId = selectedElements?.first()?.id as Int
         val hours = hoursView?.text.toString().toInt()
 
+        if (hours > 100) {
+            runOnUiThread {
+                Toast.makeText(this@AddEntryActivity, "Введено слишком много часов", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
+        if (comment?.text.toString() == "") {
+            runOnUiThread {
+                Toast.makeText(this@AddEntryActivity, "Введено слишком много часов", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
         val prefs = getSharedPreferences("Server", Context.MODE_PRIVATE)
         ApiService(prefs).createEntry(hours, issueId,comment?.text.toString(),activityId,
             object : Callback {

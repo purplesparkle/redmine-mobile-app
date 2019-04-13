@@ -43,7 +43,7 @@ class ApiService(private val prefs: SharedPreferences)
     }
 
     fun requestGet(urlPath: String, offset: Int = 0, limit: Int = 11, additionalParams: String = "", callback: Callback): Call {
-        val baseCall = "$urlPath?offset=$offset&limit=$limit"
+        val baseCall = "$urlPath?offset=$offset&limit=$limit&sort=created_on:desc"
         val apiCall = if (additionalParams != "") "$baseCall&$additionalParams" else baseCall
         val request = createBaseBuilder(apiCall).build()
         var call = client.newCall(request)

@@ -14,33 +14,21 @@
             android:gravity="center_vertical|center_horizontal|center"
             app:layout_constraintTop_toTopOf="parent" android:id="@+id/linearLayout" android:orientation="vertical">
         <include layout="@layout/toolbar_top"/>
-
-        <android.support.v7.widget.Toolbar
-                android:layout_width="411dp"
-                android:layout_height="54dp"
+        <TextView
+                android:id="@+id/textView2"
                 android:background="#C4C4C4"
-                android:theme="?attr/actionBarTheme"
-                android:minHeight="?attr/actionBarSize"
-                android:id="@+id/toolbar" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0" app:layout_constraintHorizontal_bias="0.0">
-
-            <TextView
-                    android:text="@string/workingCaption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="68dp"
-                    android:gravity="center"
-                    tools:layout_editor_absoluteX="125dp" android:id="@+id/textView2" android:textSize="24sp"
-                    tools:text="Трудозатраты" android:textColor="@color/abc_input_method_navigation_guard"
-            />
-        </android.support.v7.widget.Toolbar>
+                android:text="@string/workingCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="68dp"
+                android:gravity="center"
+                android:height="50dp"
+                tools:layout_editor_absoluteX="125dp" android:textSize="24sp"
+                tools:text="Добавление трудозатрат" android:textColor="@color/abc_input_method_navigation_guard"/>
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
 
                       android:orientation="horizontal">
             <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
-                          android:layout_marginTop="34dp" android:layout_marginLeft="40dp"
+                          android:layout_marginTop="34dp" android:layout_marginLeft="20dp"
                           android:orientation="vertical">
                 <TextView
                         android:text="@string/taskCaption"
@@ -84,14 +72,14 @@
                 <EditText android:id="@+id/addEntryIssue"
                           android:inputType="text"
                           android:layout_marginBottom="6dp"
-                          android:layout_width="177dp" android:layout_height="26dp"
+                          android:layout_width="187dp" android:layout_height="26dp"
                           style="@style/InputField"
                           android:enabled="false"
-                          android:hint="@string/_322" android:textSize="14sp"
+                          android:textSize="14sp"
                           tools:layout_editor_absoluteY="138dp" tools:layout_editor_absoluteX="193dp"/>
                 <EditText
                         android:id="@+id/addEntryHours"
-                        android:layout_width="177dp" android:layout_height="26dp"
+                        android:layout_width="187dp" android:layout_height="26dp"
                         android:layout_marginBottom="14dp"
                         android:inputType="number"
                         style="@style/InputField"
@@ -99,53 +87,37 @@
                         tools:layout_editor_absoluteY="220dp" tools:layout_editor_absoluteX="192dp"/>
 
                 <Spinner
-                        android:layout_width="178dp"
+                        android:layout_width="187dp"
                         android:layout_height="25dp"
                         android:id="@+id/spinner"
                         tools:layout_editor_absoluteY="262dp" tools:layout_editor_absoluteX="192dp"/>
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
             <EditText
-                    android:layout_width="313dp" android:layout_height="84dp"
+                    android:layout_width="320dp" android:layout_height="84dp"
                     android:inputType="text"
                     android:layout_marginTop="2dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="20dp"
                     style="@style/InputField"
                     android:textSize="14sp" android:hint="@string/hintComment" android:id="@+id/addEntryComments"
-                    android:gravity="top"
-                    tools:layout_editor_absoluteY="343dp" tools:layout_editor_absoluteX="52dp"/>
+                    android:gravity="top"/>
+            <Button
+                    android:text="@string/buttonAddCaption"
+                    android:background="@drawable/button"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textColor="#fff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonAdd"
+                    android:onClick="sendRequest"/>
         </LinearLayout>
 
         <!-- android:layout_marginRight="10dp"!-->
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_marginTop="10dp"
-                      android:layout_height="match_parent">
-            <Button
-                    android:text="@string/buttonBackCaption"
-                    android:background="@drawable/gray_button"
-                    android:layout_marginLeft="42dp"
-                    android:layout_width="151dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/buttonBack"
-                    tools:layout_editor_absoluteY="439dp" tools:layout_editor_absoluteX="52dp"/>
-            <Button
-                    android:text="@string/buttonAddCaption"
-                    android:background="@drawable/button"
-                    android:layout_marginLeft="11dp"
-                    android:layout_width="151dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/buttonAdd"
-                    android:onClick="sendRequest"
-                    tools:layout_editor_absoluteY="439dp" tools:layout_editor_absoluteX="219dp"/>
-        </LinearLayout>
     </LinearLayout>
-
-
-
-
-
-
 </android.support.constraint.ConstraintLayout>

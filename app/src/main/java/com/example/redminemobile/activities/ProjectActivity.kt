@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.AbsListView
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
@@ -38,8 +39,9 @@ class ProjectActivity : AppCompatActivity() {
         loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
         projectsPlaceholder = findViewById(R.id.projectsPlaceholder) as TextView?
         listView = findViewById(R.id.listView) as ListView?
-        fillProjects()
+        fixScrollListView()
         configureRefresh()
+        fillProjects()
     }
 
     private fun configureRefresh(){
@@ -49,6 +51,28 @@ class ProjectActivity : AppCompatActivity() {
             offset = 0
             loadMoreButton?.visibility = View.VISIBLE
         }
+    }
+
+    private fun fixScrollListView(){
+        val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshProject) as SwipeRefreshLayout
+        listView?.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {}
+            override fun onScroll(
+                view: AbsListView,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) {
+                val topRowVerticalPosition = if (listView == null || listView?.childCount == 0)
+                    0
+
+                else
+                    listView?.getChildAt(0)?.top
+                if (topRowVerticalPosition != null) {
+                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0)
+                }
+            }
+        })
     }
 
     private fun fillProjects()

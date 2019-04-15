@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.view.View
+import android.widget.AbsListView
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
@@ -28,7 +29,7 @@ class TimeEntryActivity : AppCompatActivity() {
     private var listView: ListView? = null
     private var loadMoreButton: Button? = null
     private var offset: Int = 0
-    private var quantity: Int = 5
+    private var quantity: Int = 6
     private var isAdapterCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class TimeEntryActivity : AppCompatActivity() {
         listView = findViewById(R.id.listView) as ListView?
         configureRefresh()
         configureSwitch()
+        fixScrollListView()
         fillEntries()
     }
 
@@ -63,6 +65,28 @@ class TimeEntryActivity : AppCompatActivity() {
                 fillEntries()
             }
         }
+    }
+
+    private fun fixScrollListView(){
+        val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshEntry) as SwipeRefreshLayout
+        listView?.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {}
+            override fun onScroll(
+                view: AbsListView,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) {
+                val topRowVerticalPosition = if (listView == null || listView?.childCount == 0)
+                    0
+
+                else
+                    listView?.getChildAt(0)?.top
+                if (topRowVerticalPosition != null) {
+                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0)
+                }
+            }
+        })
     }
 
     private fun reset(){
@@ -127,15 +151,16 @@ class TimeEntryActivity : AppCompatActivity() {
             val listView = findViewById(R.id.listView) as ListView
             val adapter = TimeEntriesListViewAdapter(this, items)
             listView.adapter = adapter
-            listView.setOnItemClickListener { parent, view, position, id ->
-                var intent = Intent(this, AddEntryActivity::class.java)
-                intent.putExtra("issue_id", issueId)
-                startActivity(intent)
-            }
             adapter.notifyDataSetChanged()
             entriesPlaceholder?.visibility = View.GONE
             isAdapterCreated = true
         }
+    }
+
+    fun createEntry(view: View?){
+        var intent = Intent(this, AddEntryActivity::class.java)
+        intent.putExtra("issue_id", issueId)
+        startActivity(intent)
     }
 
     private fun addItemsToAdapter(projects: ArrayList<TimeEntry>){

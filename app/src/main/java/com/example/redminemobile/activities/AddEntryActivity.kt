@@ -22,6 +22,7 @@ class AddEntryActivity : AppCompatActivity() {
 
     private var issueId = -1
     private var activitiesMap:List<KeyValue>? = null
+    private var isButtonBlocked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,12 @@ class AddEntryActivity : AppCompatActivity() {
     }
 
     fun sendRequest(view: View){
+        if (isButtonBlocked){
+            return
+        }
+        else{
+            isButtonBlocked = true
+        }
         val hoursView= findViewById(R.id.addEntryHours) as TextView?
         val comment = findViewById(R.id.addEntryComments) as TextView?
         var dropdown = findViewById(R.id.spinner) as Spinner?
@@ -64,15 +71,17 @@ class AddEntryActivity : AppCompatActivity() {
         val hours = hoursView?.text.toString().toInt()
 
         if (hours > 100) {
+            isButtonBlocked = false
             runOnUiThread {
-                Toast.makeText(this@AddEntryActivity, "Введено слишком много часов", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddEntryActivity, R.string.tooManyHoursError, Toast.LENGTH_SHORT).show()
             }
             return
         }
 
-        if (comment?.text.toString() == "") {
+        if (comment?.text?.trim().toString() == "") {
+            isButtonBlocked = false
             runOnUiThread {
-                Toast.makeText(this@AddEntryActivity, "Введено слишком много часов", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddEntryActivity, R.string.emptyCommentError, Toast.LENGTH_SHORT).show()
             }
             return
         }
@@ -82,6 +91,7 @@ class AddEntryActivity : AppCompatActivity() {
             object : Callback {
                 override fun onFailure(call: Call, e: IOException) {}
                 override fun onResponse(call: Call, response: Response) {
+                    isButtonBlocked = false
                     if (response.code() == 201)
                         finish()
                     else{

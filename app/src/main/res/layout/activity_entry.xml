@@ -4,39 +4,59 @@
         android:id="@+id/swipeRefreshEntry"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.TimeEntryActivity">
-    <include layout="@layout/toolbar_top"/>
-    <android.support.v7.widget.SwitchCompat
-            android:paddingLeft="10dp"
-            android:id="@+id/switchCompatEntries"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:checked="false"
-            android:text="@string/myEntries"/>
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dip"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:id="@+id/entriesPlaceholder"
-        android:text="@string/onLoadPlaceholder"/>
-    <Button
-            android:id="@+id/loadMoreButton"
-            android:background="@drawable/button"
-            android:text="@string/loadMoreButton"
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:textColor="#fff"
-            android:layout_height="wrap_content"
-            android:onClick="loadMore"/>
-</LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".activities.TimeEntryActivity">
+        <include layout="@layout/toolbar_top"/>
+        <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/RelativeLayout01"
+                android:layout_width="fill_parent"
+                android:background="#C4C4C4"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+            <android.support.v7.widget.SwitchCompat
+                    android:paddingLeft="10dp"
+                    android:id="@+id/switchCompatEntries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:checked="false"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/myEntries"/>
+            <Button
+                    android:id="@+id/button"
+                    android:background="@drawable/button"
+                    android:layout_alignParentEnd="true"
+                    android:text="+"
+                    android:layout_width="50dp"
+                    android:textSize="20sp"
+                    android:layout_height="50dp"
+                    android:textColor="#fff"
+                    android:onClick="createEntry"/>
+
+        </RelativeLayout>
+        <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dip"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/entriesPlaceholder"
+                android:text="@string/onLoadPlaceholder"/>
+        <Button
+                android:id="@+id/loadMoreButton"
+                android:background="@drawable/button"
+                android:text="@string/loadMoreButton"
+                android:layout_width="match_parent"
+                android:textColor="#fff"
+                android:layout_height="wrap_content"
+                android:onClick="loadMore"/>
+    </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

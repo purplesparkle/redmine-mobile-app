@@ -30,11 +30,13 @@
     <string name="activityCaption">Деятельность</string>
     <string name="workingCaption">Трудозатраты</string>
     <string name="commentCaption">Комментарий:</string>
-    <string name="_322">#322</string>
-    <string name="hintDate">01.12.23</string>
-    <string name="hintWorkTime">1,5</string>
-    <string name="hintComment">Здесь мой коммент…</string>
+    <string name="hintWorkTime">1.5</string>
+    <string name="hintComment">Опишите деятельность</string>
     <string name="buttonBackCaption">Назад</string>
     <string name="buttonAddCaption">Добавить</string>
     <string name="myEntries">Мои трудозатраты</string>
+
+    <string name="tooManyHoursError">Введено слишком много часов</string>
+    <string name="emptyCommentError">Комментарий не может быть пустым</string>
+
 </resources>

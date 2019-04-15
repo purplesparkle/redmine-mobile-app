@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.view.View
+import android.widget.AbsListView
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
@@ -29,7 +30,7 @@ class IssueActivity : AppCompatActivity() {
     private var loadMoreButton: Button? = null
     private var projectId: Int = -1
     private var offset: Int = 0
-    private var quantity: Int = 4
+    private var quantity: Int = 6
     private var isAdapterCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class IssueActivity : AppCompatActivity() {
         loadMoreButton = findViewById(R.id.loadMoreButton) as Button?
         listView = findViewById(R.id.listView) as ListView?
         getIssues()
+        fixScrollListView()
         configureRefresh()
         configureSwitch()
     }
@@ -63,6 +65,28 @@ class IssueActivity : AppCompatActivity() {
                 getIssues()
             }
         }
+    }
+
+    private fun fixScrollListView(){
+        val mSwipeRefreshLayout = findViewById(R.id.swipeRefreshIssue) as SwipeRefreshLayout
+        listView?.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {}
+            override fun onScroll(
+                view: AbsListView,
+                firstVisibleItem: Int,
+                visibleItemCount: Int,
+                totalItemCount: Int
+            ) {
+                val topRowVerticalPosition = if (listView == null || listView?.childCount == 0)
+                    0
+
+                else
+                    listView?.getChildAt(0)?.top
+                if (topRowVerticalPosition != null) {
+                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0)
+                }
+            }
+        })
     }
 
     private fun reset(){
@@ -110,6 +134,7 @@ class IssueActivity : AppCompatActivity() {
                 intent.putExtra("issue_id", id)
                 startActivity(intent)
             }
+
             adapter.notifyDataSetChanged()
             issuesPlaceholder?.visibility = View.GONE
             isAdapterCreated = true
@@ -137,7 +162,6 @@ class IssueActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun addItemsToAdapter(projects: ArrayList<Issue>){
         val adapter = listView?.adapter as IssuesListViewAdapter
         adapter.addItems(projects)

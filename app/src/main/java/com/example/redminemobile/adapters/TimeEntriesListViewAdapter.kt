@@ -26,8 +26,9 @@ class TimeEntriesListViewAdapter(private var activity: Activity, private var ite
         }
 
         var entry = items[position]
-        viewHolder.entryHours?.text = entry.hours.toString()
+        viewHolder.entryHours?.text = entry.hours.toString() + " ч."
         viewHolder.entryComment?.text = entry.comments
+        viewHolder.entryUser?.text = "Пользователь: "+entry.user?.name
 
         return view as View
     }
@@ -35,10 +36,12 @@ class TimeEntriesListViewAdapter(private var activity: Activity, private var ite
     class ViewHolder(row: View?) {
         var entryHours: TextView? = null
         var entryComment: TextView? = null
+        var entryUser: TextView? = null
 
         init {
             this.entryHours = row?.findViewById(R.id.entryHours) as TextView?
             this.entryComment = row?.findViewById(R.id.entryComment) as TextView?
+            this.entryUser = row?.findViewById(R.id.entryUser) as TextView?
         }
     }
 }
